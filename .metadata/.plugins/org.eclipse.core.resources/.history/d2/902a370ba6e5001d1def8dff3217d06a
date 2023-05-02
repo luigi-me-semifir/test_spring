@@ -1,0 +1,11 @@
+package com.example.cuisine.Ingredients;
+
+import jakarta.persistence.Entity;
+import lombok.Getter;
+
+@Entity
+@Getter
+@
+public class Ingredient {
+
+}

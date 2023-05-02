@@ -1,0 +1,62 @@
+package com.example.fr.omg.elkino.films;
+
+// Jakarta (JEE) Persistence = JPA
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import fr.omg.elkino.acteurs.Acteur;
+import fr.omg.elkino.realisateurs.Realisateur;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter // Ajoute les getters
+@Setter // Ajoute les setters
+@ToString // Ajoute la méthode toString()
+@NoArgsConstructor // Ajoute le constructeur sans paramètre
+@Table(name = "film")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Film {
+    // @Id = Primary Key
+    @Id
+    // @GeneratedValue = Auto Increment
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    // @Column = Column Name
+    @Column(nullable = false)
+    private String titre;
+
+    @Column(nullable = false)
+    private LocalDate dateSortie;
+
+    // Si @Column n'est pas spécifié, le nom de la colonne est le nom de l'attribut
+    // Ce sera tout de même ajouté à la table
+    private int duree;
+
+    @Column(length = 500)
+    private String synopsis;
+
+    // Ne sera pas repris dans la table
+    @Transient
+    private String attributSansLienBdd;
+
+    // /!\ : Many to Many bidirectionnel : boucle infinie
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "acteur_film",
+            // Spécifie le nom de la colonne de liaison (FK) pour la table courante
+            joinColumns = @JoinColumn(name = "film_id"),
+            // Spécifie le nom de la colonne de liaison (FK) pour la table liée
+            inverseJoinColumns = @JoinColumn(name = "acteur_id")
+    )
+    private List<Acteur> acteurs = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "films", cascade = CascadeType.PERSIST)
+    private List<Realisateur> realisateurs = new ArrayList<>();
+
+}

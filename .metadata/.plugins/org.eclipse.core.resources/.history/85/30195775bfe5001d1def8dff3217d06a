@@ -1,0 +1,37 @@
+package com.example.demo.personne;
+
+import java.util.*;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class PersonneService {
+	
+	private List<Personne> personnes = new ArrayList<>();
+	
+	public List<Personne> findAll(){
+		return personnes;
+	}
+	
+	public void save(Personne personne) {
+		personnes.add(personne);
+	}
+	
+	public Optional<Personne> findById(int id){
+		return personnes.stream().filter(personne -> personne.getId() == id).findFirst();
+	}
+	
+	public void deleteAll() {
+		personnes.clear();
+	}
+	
+	public void deleteById(int id) {
+		personnes.removeIf(personne -> personne.getId() == id);
+	}
+	
+	public void update(Personne personne) {
+		deleteById(personne.getId());
+		save(personne);
+	}
+
+}

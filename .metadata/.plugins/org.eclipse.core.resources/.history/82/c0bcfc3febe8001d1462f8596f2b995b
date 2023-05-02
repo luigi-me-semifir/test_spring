@@ -1,0 +1,18 @@
+package fr.omg.elkino.films;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.time.LocalDate;
+
+/**
+ * Repository de gestion des films généré par JPA
+ * Généricité : <Entité, Type de l'ID>
+ */
+public interface FilmRepository extends JpaRepository<Film, Integer> {
+    <List> Film findByTitre(String titre);
+
+    <List> Film findByTitreContaining(String titre);
+
+    <List> Film findByDateSortie(LocalDate dateSortie);
+
+    <List> Film findByDateSortieBetween(LocalDate dateDebut, LocalDate dateFin);
+}

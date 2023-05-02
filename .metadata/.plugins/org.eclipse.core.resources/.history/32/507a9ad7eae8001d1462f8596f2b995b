@@ -1,0 +1,14 @@
+package com.example.fr.omg.elkino.realisateurs.dto;
+
+import com.example.fr.omg.elkino.films.dto.FilmReduitDto;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class RealisateurCompletDto {
+    private Integer id;
+    private String nom;
+    private String prenom;
+    private List<FilmReduitDto> films;
+}

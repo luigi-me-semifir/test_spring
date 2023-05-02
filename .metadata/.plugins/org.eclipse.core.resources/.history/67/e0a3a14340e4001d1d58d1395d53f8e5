@@ -1,0 +1,39 @@
+package com.example.demo.calculatrice;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/calculs")
+public class CalculatriceController {
+	
+	@GetMapping("/additions")
+	public int add(@RequestParam int a, @RequestParam int b) {
+		return a + b;
+	}
+	
+	@GetMapping("/soustractions")
+	public int sous(@RequestParam int a, @RequestParam int b) {
+		return a - b;
+	}
+	
+	@GetMapping("/multiplications")
+	public int mult(@RequestParam int a, @RequestParam int b) {
+		return a * b;
+	}
+	
+	@GetMapping("/divisions")
+	public int div(@RequestParam int a, @RequestParam int b) {
+		return a / b;
+	}
+	
+	@GetMapping("/modulo")
+	public int modulo(@RequestParam int a, @RequestParam int b) {
+		return a % b;
+	}
+	
+	
+
+}

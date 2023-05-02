@@ -1,0 +1,35 @@
+package fr.omg.elkino.realisateurs;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import fr.omg.elkino.films.Film;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@Table(name = "realisateur")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Realisateur {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    private String nom;
+    private String prenom;
+
+    @ManyToMany
+    @JoinTable(name = "film_realisateur",
+            joinColumns = @JoinColumn(name = "realisateur_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
+    private List<Film> films;
+}

@@ -1,0 +1,5 @@
+package com.example.cuisine.ingredientsQuantite;
+
+public interface IngredientsQuantiteRepository {
+
+}
